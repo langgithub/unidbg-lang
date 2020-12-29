@@ -21,3 +21,7 @@
 /unidbg-server/unidbg-server.iml
 /unidbg-server/target/
 /unidbg-server/log/
+
+/unidbg-parent/.idea
+/unidbg-parent/log
+/unidbg-parent/unidbg-parent.iml
