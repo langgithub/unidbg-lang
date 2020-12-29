@@ -10,6 +10,7 @@
 
 /unidbg-android/unidbg-android.iml
 /unidbg-android/target/
+/unidbg-android/*.log
 
 /unidbg-ios/unidbg-ios.iml
 /unidbg-ios/target/
