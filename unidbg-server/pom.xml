@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>unidbg-parent</artifactId>
+        <groupId>com.lang.unidbg</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../unidbg-parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>unidbg-server</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.lang.unidbg</groupId>
+            <artifactId>unidbg-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lang.unidbg</groupId>
+            <artifactId>unidbg-dynarmic</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lang.unidbg</groupId>
+            <artifactId>unidbg-android</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.26</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lang</groupId>
+            <artifactId>sekiro-lib</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-simple</artifactId>-->
+<!--            <version>1.7.25</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>server</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>assembly</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!--            <plugin>-->
+            <!--                <artifactId>maven-resources-plugin</artifactId>-->
+            <!--                <version>2.6</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>copy-xmls</id>-->
+            <!--                        <phase>process-sources</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>copy-resources</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            <outputDirectory>${basedir}/target/classes</outputDirectory>-->
+            <!--                            <resources>-->
+            <!--                                <resource>-->
+            <!--                                    <directory>${basedir}/src/main/java</directory>-->
+            <!--                                    <includes>-->
+            <!--                                        <include>**/*.*</include>-->
+            <!--                                    </includes>-->
+            <!--                                </resource>-->
+            <!--                            </resources>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+
+        </plugins>
+    </build>
+
+</project>
