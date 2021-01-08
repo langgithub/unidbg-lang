@@ -17,17 +17,8 @@ import java.util.Map;
 public class XhsSheildHandler implements SekiroRequestHandler {
 
     xhsShield test = null;
-    public XhsSheildHandler(){
-        try {
-            test = new xhsShield() {
-                @Override
-                public FileResult resolve(Emulator emulator, String pathname, int oflags) {
-                    return null;
-                }
-            };
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public XhsSheildHandler(xhsShield test){
+        this.test = test;
     }
 
     @Override

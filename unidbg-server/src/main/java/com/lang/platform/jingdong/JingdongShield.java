@@ -12,12 +12,15 @@ import com.github.unidbg.file.IOResolver;
 import com.github.unidbg.linux.android.AndroidARMEmulator;
 import com.github.unidbg.linux.android.AndroidResolver;
 import com.github.unidbg.linux.android.dvm.*;
+import com.github.unidbg.linux.android.dvm.array.ArrayObject;
+import com.github.unidbg.linux.android.dvm.array.ByteArray;
 import com.github.unidbg.memory.Memory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 
-public abstract class JingdongShield extends AbstractJni implements IOResolver {
+public abstract class JingdongShield<callObjectMethod> extends AbstractJni implements IOResolver {
 
     private static LibraryResolver createLibraryResolver() {
         return new AndroidResolver(23);
@@ -94,6 +97,30 @@ public abstract class JingdongShield extends AbstractJni implements IOResolver {
     }
 
     @Override
+    public DvmObject<?> callObjectMethod(BaseVM vm, DvmObject<?> dvmObject, String signature, VarArg varArg) {
+        System.out.println("call: " + signature);
+        switch (signature) {
+            case "android/app/Application->getPackageManager()Landroid/content/pm/PackageManager;":
+                DvmClass clazz = vm.resolveClass("android/content/pm/PackageManager");
+                return clazz.newObject(signature);
+            case "android/app/Application->getPackageName()Ljava/lang/String;":
+                String packageName = vm.getPackageName();
+                if (packageName != null) {
+                    return new StringObject(vm, packageName);
+                }
+                break;
+            case "android/app/Application->getApplicationInfo()Landroid/content/pm/ApplicationInfo;":
+                DvmClass clazz1 = vm.resolveClass("android/content/pm/ApplicationInfo");
+                return clazz1.newObject(signature);
+            case "sun/security/pkcs/PKCS7->getCertificates()[Ljava/security/cert/X509Certificate;":
+                DvmClass clazz2 = vm.resolveClass("java/security/cert/X509Certificate");
+                return new ArrayObject(clazz2.newObject(signature));
+
+        }
+        return super.callObjectMethod(vm, dvmObject, signature, varArg);
+    }
+
+    @Override
     public DvmObject<?> getStaticObjectField(BaseVM vm, DvmClass dvmClass, String signature) {
         System.out.println("call: " + signature);
         switch (signature) {
@@ -101,6 +128,39 @@ public abstract class JingdongShield extends AbstractJni implements IOResolver {
                 return new ApplicationObject(vm, signature);
         }
         return super.getStaticObjectField(vm, dvmClass, signature);
+    }
+
+    @Override
+    public DvmObject<?> callStaticObjectMethod(BaseVM vm, DvmClass dvmClass, String signature, VarArg varArg) {
+        System.out.println("call: " + signature);
+        switch (signature) {
+            case "com/jingdong/common/utils/BitmapkitZip->unZip(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)[B":
+                return new ByteArray(vm,"ok".getBytes());
+            case "com/jingdong/common/utils/BitmapkitZip->objectToBytes(Ljava/lang/Object;)[B":
+                return new ByteArray(vm,"ok".getBytes());
+        }
+        return super.callStaticObjectMethod(vm, dvmClass, signature, varArg);
+    }
+
+    @Override
+    public DvmObject<?> newObject(BaseVM vm, DvmClass dvmClass, String signature, VarArg varArg) {
+        System.out.println("call: " + signature);
+        switch (signature) {
+            case "sun/security/pkcs/PKCS7-><init>([B)V":
+                DvmClass clazz1 = vm.resolveClass("sun/security/pkcs/PKCS7");
+                return clazz1.newObject(signature);
+        }
+        return super.newObject(vm, dvmClass, signature, varArg);
+    }
+
+    @Override
+    public DvmObject<?> getObjectField(BaseVM vm, DvmObject<?> dvmObject, String signature) {
+        System.out.println("call: " + signature);
+        switch (signature) {
+            case "android/content/pm/ApplicationInfo->sourceDir:Ljava/lang/String;":
+                return new StringObject(vm, "/data/data/com.jingdong.app.mall");
+        }
+        return super.getObjectField(vm,dvmObject,signature);
     }
 
     @Override

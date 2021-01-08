@@ -56,11 +56,9 @@ public abstract class xhsShield extends AbstractJni implements IOResolver {
         memory.setLibraryResolver(createLibraryResolver());
 
 
-        System.out.println(new File(this.getClass().getResource("").getFile()).getParentFile().getParentFile().getParentFile().getPath()+"/xhs/xhs526.apk");
-        vm = emulator.createDalvikVM(new File(this.getClass().getResource("/xhs/xhs526.apk").getFile()));
+        vm = emulator.createDalvikVM(new File("/Users/yuanlang/work/java/project/unidbg-lang/unidbg-server/src/main/resources/xhs/xhs526.apk"));
         vm.setJni(this);
-        DalvikModule dm = vm.loadLibrary(new File(this.getClass().getResource("/xhs/libshield526.so").getFile()), false);
-
+        DalvikModule dm = vm.loadLibrary(new File("/Users/yuanlang/work/java/project/unidbg-lang/unidbg-server/src/main/resources/xhs/libshield526.so"), false);
 
 //        vm = emulator.createDalvikVM(new File("/data/unidbg/xhs526.apk"));
 //        vm.setJni(this);
@@ -141,7 +139,8 @@ public abstract class xhsShield extends AbstractJni implements IOResolver {
                 return null;
             }
         };
-        String url = "https://www.xiaohongshu.com/api/sns/v2/note/user/5ca227310000000011005682?page=1&page_size=10&sub_tag_id=&platform=Android&deviceId=e45ea788-06f6-3d2f-bf6c-03f68152c851&device_fingerprint=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&device_fingerprint1=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&versionName=5.26.2&channel=GooglePlay&sid=session.1608775132099963252820&lang=zh-Hans&t=1608779046&sign=6c057d47450c24a29330e06046e46678";
+
+        String url = "https://www.xiaohongshu.com/api/sns/v5/note/5fec96fa00000000010045a9/comment/list?start=&num=3&show_priority_sub_comments=1&platform=Android&deviceId=e45ea788-06f6-3d2f-bf6c-03f68152c851&device_fingerprint=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&device_fingerprint1=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&versionName=5.26.2&channel=GooglePlay&sid=session.1609234760057874883808&lang=zh-Hans&t=1610009987&sign=087b61019db28fda036b5a119e97d1e4";
         Map<String, String> map = XhsSign.getParams(url);
         String params = XhsSign.getSheildParams(map);
         System.out.println(params);
@@ -150,7 +149,9 @@ public abstract class xhsShield extends AbstractJni implements IOResolver {
         String deviceId = map.get("deviceId");
         System.out.println(deviceId);
         String userAgent = "Dalvik/2.1.0 (Linux; U; Android 6.0.1; Nexus 6P Build/MTC20L) Resolution/1440*2392 Version/5.26.2 Build/5260361 Device/(Huawei;Nexus 6P) NetType/WiFi";
-        System.out.println(test.getShield(params,sessionId,deviceId,userAgent));
+        System.out.println(test.getShield(params, sessionId, deviceId, userAgent));
+        Thread.sleep(5000);
+
         test.destroy();
     }
 }
