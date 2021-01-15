@@ -42,6 +42,7 @@ public abstract class JingdongShield<callObjectMethod> extends AbstractJni imple
         memory.setLibraryResolver(createLibraryResolver());
 
         vm = emulator.createDalvikVM(new File("/Users/yuanlang/work/java/project/unidbg-lang/unidbg-server/src/main/resources/jingdong/京东.apk"));
+//        vm = emulator.createDalvikVM(null);
         vm.setJni(this);
         vm.setVerbose(true); // 设置是否打印Jni调用细节
         DalvikModule dm = vm.loadLibrary(new File("/Users/yuanlang/work/java/project/unidbg-lang/unidbg-server/src/main/resources/jingdong/libjdbitmapkit.so"), false);
@@ -104,17 +105,15 @@ public abstract class JingdongShield<callObjectMethod> extends AbstractJni imple
                 DvmClass clazz = vm.resolveClass("android/content/pm/PackageManager");
                 return clazz.newObject(signature);
             case "android/app/Application->getPackageName()Ljava/lang/String;":
-                String packageName = vm.getPackageName();
-                if (packageName != null) {
-                    return new StringObject(vm, packageName);
-                }
-                break;
+//                String packageName = vm.getPackageName();
+                return new StringObject(vm, "com.jingdong.app.mall");
             case "android/app/Application->getApplicationInfo()Landroid/content/pm/ApplicationInfo;":
                 DvmClass clazz1 = vm.resolveClass("android/content/pm/ApplicationInfo");
                 return clazz1.newObject(signature);
             case "sun/security/pkcs/PKCS7->getCertificates()[Ljava/security/cert/X509Certificate;":
                 DvmClass clazz2 = vm.resolveClass("java/security/cert/X509Certificate");
                 return new ArrayObject(clazz2.newObject(signature));
+
 
         }
         return super.callObjectMethod(vm, dvmObject, signature, varArg);

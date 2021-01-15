@@ -47,6 +47,21 @@ public class XhsSheildHandler implements SekiroRequestHandler {
                 url = "https://www.xiaohongshu.com/api/sns/v1/recommend/user/contacts?page="+page+"&keyword="+phone+"&platform=Android&deviceId=e45ea788-06f6-3d2f-bf6c-03f68152c851&device_fingerprint=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&device_fingerprint1=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&versionName=5.26.2&channel=GooglePlay&sid=session.1608775132099963252820&lang=zh-Hans&t=1608865768&sign=b3b2daa11646675df411267d7d219c34";
                 urlLeft = "https://www.xiaohongshu.com/api/sns/v1/recommend/user/contacts";
             }
+            if ("note".equals(cawlName)){
+                String userId= sekiroRequest.getString("userId");
+                url = "https://www.xiaohongshu.com/api/sns/v5/note/"+userId+"/comment/list?start=&num=3&show_priority_sub_comments=1&platform=Android&deviceId=e45ea788-06f6-3d2f-bf6c-03f68152c851&device_fingerprint=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&device_fingerprint1=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&versionName=5.26.2&channel=GooglePlay&sid=session.1609234760057874883808&lang=zh-Hans&t=1610009987&sign=087b61019db28fda036b5a119e97d1e4";
+                urlLeft = "https://www.xiaohongshu.com/api/sns/v5/note/"+userId+"/comment/list";
+            }
+            if ("noteFeed".equals(cawlName)){
+                String userId= sekiroRequest.getString("userId");
+                url = "https://www.xiaohongshu.com/api/sns/v1/note/"+userId+"/feed?page=1&num=5&is_current_note=1&source=homefeed&platform=Android&deviceId=e45ea788-06f6-3d2f-bf6c-03f68152c851&device_fingerprint=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&device_fingerprint1=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&versionName=5.26.2&channel=GooglePlay&sid=session.1609234760057874883808&lang=zh-Hans&t=1610335985&sign=b47aff8685b8cf7b8ec3e954f17e64cd";
+                urlLeft = "https://www.xiaohongshu.com/api/sns/v1/note/"+userId+"/feed";
+            }
+            if ("note2".equals(cawlName)){
+                String userId= sekiroRequest.getString("userId");
+                url = "https://www.xiaohongshu.com/api/sns/v5/note/"+userId+"/comment/list?num=20&show_priority_sub_comments=0&platform=Android&deviceId=e45ea788-06f6-3d2f-bf6c-03f68152c851&device_fingerprint=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&device_fingerprint1=2020113017502087b8779cc6128a65eebd7ad984d6994801bf8ba1b5e84b9a&versionName=5.26.2&channel=GooglePlay&sid=session.1609234760057874883808&lang=zh-Hans&t=1610345131&sign=399b0c0a5cfacd7ce60dbaa67d205999";
+                urlLeft = "https://www.xiaohongshu.com/api/sns/v5/note/"+userId+"/comment/list";
+            }
             Map<String, String> map = XhsSign.getParams(url);
             String params = XhsSign.getSheildParams(map);
             System.out.println("sheild sign>>>"+params);
