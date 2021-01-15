@@ -56,13 +56,13 @@ public abstract class xhsShield extends AbstractJni implements IOResolver {
         memory.setLibraryResolver(createLibraryResolver());
 
 
-        vm = emulator.createDalvikVM(new File("/Users/yuanlang/work/java/project/unidbg-lang/unidbg-server/src/main/resources/xhs/xhs526.apk"));
-        vm.setJni(this);
-        DalvikModule dm = vm.loadLibrary(new File("/Users/yuanlang/work/java/project/unidbg-lang/unidbg-server/src/main/resources/xhs/libshield526.so"), false);
-
-//        vm = emulator.createDalvikVM(new File("/data/unidbg/xhs526.apk"));
+//        vm = emulator.createDalvikVM(new File("/Users/yuanlang/work/java/project/unidbg-lang/unidbg-server/src/main/resources/xhs/xhs526.apk"));
 //        vm.setJni(this);
-//        DalvikModule dm = vm.loadLibrary(new File("/data/unidbg/libshield526.so"), false);
+//        DalvikModule dm = vm.loadLibrary(new File("/Users/yuanlang/work/java/project/unidbg-lang/unidbg-server/src/main/resources/xhs/libshield526.so"), false);
+
+        vm = emulator.createDalvikVM(new File("/data/unidbg/xhs526.apk"));
+        vm.setJni(this);
+        DalvikModule dm = vm.loadLibrary(new File("/data/unidbg/libshield526.so"), false);
         dm.callJNI_OnLoad(emulator);
         module = dm.getModule();
         RedHttpInterceptor = vm.resolveClass("com/xingin/shield/http/RedHttpInterceptor");
